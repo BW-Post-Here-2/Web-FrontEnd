@@ -10,8 +10,8 @@ import axios from 'axios';
 
 // import './App.css';
 
-const logInURL = 'https://redditpost.herokuapp.com/api/auth/login';
-const registerURL = 'https://redditpost.herokuapp.com/api/auth/register';
+const logInUrl = 'https://redditpost.herokuapp.com/api/auth/login';
+const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
 
 function App() {
 
@@ -27,8 +27,8 @@ function App() {
     setFormValues({ ...formValues, [name]: value })
   }
 
-  const userLogin = () => {
-    axios.post(logInURL, formValues)
+  const userFormPost = (url) => {
+    axios.post(url, formValues)
       .then(res => {
         console.log('Response', res);
       })
@@ -37,9 +37,14 @@ function App() {
       })
   }
 
-  const handleOnSubmit = (e) => {
+  const logInSubmit = (e) => {
     e.preventDefault();
-    userLogin();
+    userFormPost(logInUrl);
+  }
+
+  const signUpSubmit = (e) => {
+    e.preventDefault();
+    userFormPost(registerUrl);
   }
 
   return (
@@ -54,16 +59,21 @@ function App() {
           <Route path='/signin'>
             <SignIn
               formValues={formValues}
-              handleOnSubmit={handleOnSubmit}
+              handleOnSubmit={logInSubmit}
               onInputChange={onInputChange} />
           </Route>
-          <Route path='/signup' component={SignUp} />
+          <Route path='/signup'>
+            <SignUp
+              formValues={formValues}
+              handleOnSubmit={signUpSubmit}
+              onInputChange={onInputChange} />
+          </Route>
           <Route path='/create' component={CreatePost} />
         </Switch>
 
       </div>
 
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

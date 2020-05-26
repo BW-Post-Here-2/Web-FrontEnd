@@ -12,7 +12,7 @@ const SignUp = (props) => {
                 handleOnSubmit={handleOnSubmit}
                 onInputChange={onInputChange}
                 buttonText={'Sign Up'}
-                signUp={true}
+                signUp={false}
             />
         </div>
     )
