@@ -1,7 +1,9 @@
 import React from 'react';
 
 const UserForm = (props) => {
-    const { username, password, onInputChange, handleOnSubmit, buttonText, signUp } = props;
+
+    const { username, password, onInputChange, handleOnSubmit, buttonText, isSignUp, disabled, formErrors } = props;
+
     return (
         <form onSubmit={handleOnSubmit}>
             <label>Username
@@ -21,17 +23,14 @@ const UserForm = (props) => {
                     onChange={onInputChange}
                 />
             </label>
+            {isSignUp &&
+                <div>
+                    <p>{formErrors.username}</p>
+                    <p>{formErrors.password}</p>
+                </div>
+            }
 
-            {signUp && <label>Confirm Password
-                <input
-                    name='password'
-                    type='password'
-                    value={password}
-                    onChange={onInputChange}
-                />
-            </label>}
-
-            <button>{buttonText}</button>
+            <button disabled={disabled}>{buttonText}</button>
         </form>
     )
 }

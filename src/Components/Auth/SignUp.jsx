@@ -2,7 +2,9 @@ import React from 'react';
 import UserForm from './UserForm';
 
 const SignUp = (props) => {
-    const { username, password, handleOnSubmit, onInputChange } = props;
+
+    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors } = props;
+    
     return (
         <div className="SignInForm">
             <h2>Sign Up</h2>
@@ -12,7 +14,9 @@ const SignUp = (props) => {
                 handleOnSubmit={handleOnSubmit}
                 onInputChange={onInputChange}
                 buttonText={'Sign Up'}
-                signUp={false}
+                isSignUp={true}
+                disabled={disabled}
+                formErrors={formErrors}
             />
         </div>
     )

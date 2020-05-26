@@ -2,7 +2,7 @@ import React from 'react';
 import UserForm from './UserForm';
 
 const SignIn = (props) => {
-    const { username, password, handleOnSubmit, onInputChange } = props;
+    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors } = props;
     return (
         <div className="SignInForm">
             <h2>Log In</h2>
@@ -13,6 +13,8 @@ const SignIn = (props) => {
                 onInputChange={onInputChange}
                 buttonText={'Log In'}
                 signUp={false}
+                disabled={disabled}
+                formErrors={formErrors}
             />
         </div>
     )
