@@ -1,29 +1,19 @@
 import React from 'react';
+import UserForm from './UserForm';
 
 const SignIn = (props) => {
     const { username, password, handleOnSubmit, onInputChange } = props;
     return (
         <div className="SignInForm">
-            <form onSubmit={handleOnSubmit}>
-                <label>Username
-                <input
-                        name='username'
-                        type='text'
-                        value={username}
-                        onChange={onInputChange}
-                    />
-                </label>
-
-                <label>Password
-                <input
-                        name='password'
-                        type='password'
-                        value={password}
-                        onChange={onInputChange}
-                    />
-                </label>
-            <button>Sign In</button>
-            </form>
+            <h2>Log In</h2>
+            <UserForm
+                username={username}
+                password={password}
+                handleOnSubmit={handleOnSubmit}
+                onInputChange={onInputChange}
+                buttonText={'Log In'}
+                signUp={false}
+            />
         </div>
     )
 }

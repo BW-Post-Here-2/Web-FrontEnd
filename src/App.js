@@ -10,6 +10,9 @@ import axios from 'axios';
 
 // import './App.css';
 
+const logInURL = 'https://redditpost.herokuapp.com/api/auth/login';
+const registerURL = 'https://redditpost.herokuapp.com/api/auth/register';
+
 function App() {
 
   //Temporary State Hooks for forms
@@ -25,12 +28,18 @@ function App() {
   }
 
   const userLogin = () => {
-    axios.post()
+    axios.post(logInURL, formValues)
+      .then(res => {
+        console.log('Response', res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues)
+    userLogin();
   }
 
   return (
