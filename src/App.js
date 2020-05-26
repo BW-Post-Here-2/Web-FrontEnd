@@ -6,6 +6,7 @@ import PostDetails from './Components/Posts/PostDetails';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 import CreatePost from './Components/Posts/CreatePost';
+import axios from 'axios';
 
 // import './App.css';
 
@@ -21,6 +22,10 @@ function App() {
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value })
+  }
+
+  const userLogin = () => {
+    axios.post()
   }
 
   const handleOnSubmit = (e) => {
