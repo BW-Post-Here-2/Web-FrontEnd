@@ -29,7 +29,6 @@ const defaultErrors = {
 
 function App() {
 
-
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [formErrors, setFormErrors] = useState(defaultErrors);
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -45,11 +44,10 @@ function App() {
       .catch((err) => console.log(err));
   }, [formValues]);
 
+  //Control validation error messages
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    setFormErrors({ ...formErrors, login: '' })
-    //Add validation errors to list of form errors
     yup
       .reach(formSchema, name)
       .validate(value)
@@ -58,9 +56,13 @@ function App() {
       })
       .catch((err) => {
         setFormErrors({ ...formErrors, [name]: err.message });
+      })
+      .finally(() => {
+        setFormErrors({ ...formErrors, login: '' });
       });
   };
 
+  //Send POST request to create/authenticate user
   const userFormPost = (url, isLoginAttempt) => {
     const loginError = isLoginAttempt
       ? "Sorry, we could not log you in with that username and password."
@@ -80,17 +82,26 @@ function App() {
       });
   };
 
+  //Submit user login
   const logInSubmit = (e) => {
     e.preventDefault();
     setFormErrors({ ...formErrors, login: '' })
     userFormPost(logInUrl, true);
   };
 
+  //Submit user registration
   const signUpSubmit = (e) => {
     e.preventDefault();
     setFormErrors({ ...formErrors, login: '' })
     userFormPost(registerUrl, false);
   };
+
+  //When changing pages, erase form values using this
+  const setFormToDefault = (e) => {
+    e.preventDefault();
+    setFormValues(defaultFormValues);
+    setFormErrors(defaultErrors);
+  }
 
   return (
     <BrowserRouter>
@@ -119,6 +130,7 @@ function App() {
               onInputChange={onInputChange}
               disabled={submitDisabled}
               isLoggingIn={isLoggingIn}
+              isSignUp={true}
             />
           </Route>
           <Route path="/create" component={CreatePost} />

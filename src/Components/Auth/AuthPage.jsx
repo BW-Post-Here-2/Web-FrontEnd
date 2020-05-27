@@ -4,8 +4,7 @@ import UserForm from './UserForm';
 const AuthPage = (props) => {
 
     const {
-        username,
-        password,
+        formValues,
         handleOnSubmit,
         onInputChange,
         disabled,
@@ -19,8 +18,8 @@ const AuthPage = (props) => {
         <div className="SignInForm">
             <h2>{pageTitle}</h2>
             <UserForm
-                username={username}
-                password={password}
+                username={formValues.username}
+                password={formValues.password}
                 handleOnSubmit={handleOnSubmit}
                 onInputChange={onInputChange}
                 buttonText={pageTitle}
