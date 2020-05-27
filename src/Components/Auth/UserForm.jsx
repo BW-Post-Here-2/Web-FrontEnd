@@ -29,7 +29,7 @@ const UserForm = (props) => {
                     <p>{formErrors.password}</p>
                 </div>
             }
-
+            <p>{formErrors.login}</p>
             <button disabled={disabled}>{buttonText}</button>
         </form>
     )

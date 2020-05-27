@@ -3,8 +3,8 @@ import UserForm from './UserForm';
 
 const SignUp = (props) => {
 
-    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors } = props;
-    
+    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors, isLoggingIn } = props;
+
     return (
         <div className="SignInForm">
             <h2>Sign Up</h2>
@@ -18,6 +18,7 @@ const SignUp = (props) => {
                 disabled={disabled}
                 formErrors={formErrors}
             />
+            {isLoggingIn && <p>Signing up, please wait...</p>}
         </div>
     )
 }
