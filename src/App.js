@@ -14,9 +14,9 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 // import './App.css';
 
 const logInUrl = "https://redditpost.herokuapp.com/api/auth/login";
-// const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
-const registerUrl =
-  "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
+const registerUrl = "https://redditpost.herokuapp.com/api/auth/register";
+// const registerUrl =
+//   "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
 
 function App() {
   const defaultFormValues = {
