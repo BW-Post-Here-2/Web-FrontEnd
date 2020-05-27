@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 export const axiosWithAuth = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return axios.create({
     headers: {
       authorization: token,
     },
-    baseURL: 'https://redditpost.herokuapp.com/api',
+    baseURL: "https://redditpost.herokuapp.com/api",
   });
 };

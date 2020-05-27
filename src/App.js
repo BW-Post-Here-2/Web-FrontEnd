@@ -7,9 +7,12 @@ import SignIn from "./Components/Auth/SignIn";
 import SignUp from "./Components/Auth/SignUp";
 import CreatePost from "./Components/Posts/CreatePost";
 import axios from "axios";
+import SavedPosts from "./Components/Posts/SavedPosts";
 import * as yup from "yup";
 import formSchema from "./Components/Auth/validation/formSchema";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 // import './App.css';
 
@@ -18,7 +21,13 @@ const registerUrl = "https://redditpost.herokuapp.com/api/auth/register";
 // const registerUrl =
 //   "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
 
-function App() {
+function App(props) {
+  const [savedList, setSavedList] = useState([]);
+
+  const addToSavedList = (post) => {
+    setSavedList([...savedList, post]);
+  };
+
   const defaultFormValues = {
     username: "",
     password: "",
@@ -70,6 +79,7 @@ function App() {
       .post(url, formValues)
       .then((res) => {
         console.log("Response", res);
+        localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
       })
       .catch((err) => {
@@ -118,8 +128,10 @@ function App() {
               isLoggingIn={isLoggingIn}
             />
           </Route>
+          <Route path="/savedposts" component={SavedPosts} />
           <Route path="/create" component={CreatePost} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/postdetail" component={PostDetails} />
         </Switch>
       </div>
     </BrowserRouter>
