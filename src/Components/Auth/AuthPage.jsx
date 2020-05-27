@@ -15,14 +15,14 @@ const AuthPage = (props) => {
     } = props;
 
     return (
-        <div className="SignInForm">
-            <h2>{pageTitle}</h2>
+        <div className="SignInForm container">
+            
             <UserForm
                 username={formValues.username}
                 password={formValues.password}
                 handleOnSubmit={handleOnSubmit}
                 onInputChange={onInputChange}
-                buttonText={pageTitle}
+                pageTitle={pageTitle}
                 disabled={disabled}
             />
             <div className='authMessages'>

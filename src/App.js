@@ -13,8 +13,7 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 // import './App.css';
 
 const logInUrl = "https://redditpost.herokuapp.com/api/auth/login";
-// const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
-const registerUrl = "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
+const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
 
 const defaultFormValues = {
   username: "",
@@ -52,14 +51,11 @@ function App() {
       .reach(formSchema, name)
       .validate(value)
       .then((valid) => {
-        setFormErrors({ ...formErrors, [name]: "" });
+        setFormErrors({ ...formErrors, [name]: '', login: '' });
       })
       .catch((err) => {
-        setFormErrors({ ...formErrors, [name]: err.message });
+        setFormErrors({ ...formErrors, [name]: err.message, login: '' });
       })
-      .finally(() => {
-        setFormErrors({ ...formErrors, login: '' });
-      });
   };
 
   //Send POST request to create/authenticate user
