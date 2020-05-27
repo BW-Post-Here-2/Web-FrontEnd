@@ -2,10 +2,11 @@ import React from 'react';
 
 const UserForm = (props) => {
 
-    const { username, password, onInputChange, handleOnSubmit, buttonText, isSignUp, disabled, formErrors } = props;
+    const { username, password, onInputChange, handleOnSubmit, pageTitle, disabled } = props;
 
     return (
-        <form onSubmit={handleOnSubmit}>
+        <form className='white' onSubmit={handleOnSubmit}>
+            <h5 className='grey-text text-darken-3'>{pageTitle}</h5>
             <label>Username
                 <input
                     name='username'
@@ -23,14 +24,9 @@ const UserForm = (props) => {
                     onChange={onInputChange}
                 />
             </label>
-            {isSignUp &&
-                <div>
-                    <p>{formErrors.username}</p>
-                    <p>{formErrors.password}</p>
-                </div>
-            }
-            <p>{formErrors.login}</p>
-            <button disabled={disabled}>{buttonText}</button>
+
+            <button className='btn light-blue lighten-1 z-depth-0' disabled={disabled}>{pageTitle}</button>
+
         </form>
     )
 }
