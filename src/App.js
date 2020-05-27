@@ -100,7 +100,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App grey darken-4">
         <Navbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />

@@ -25,7 +25,7 @@ const UserForm = (props) => {
                 />
             </label>
 
-            <button className='btn pink lighten-1 z-depth-0' disabled={disabled}>{pageTitle}</button>
+            <button className='btn light-blue lighten-1 z-depth-0' disabled={disabled}>{pageTitle}</button>
 
         </form>
     )
