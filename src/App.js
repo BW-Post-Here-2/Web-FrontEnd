@@ -13,8 +13,8 @@ import formSchema from './Components/Auth/validation/formSchema';
 // import './App.css';
 
 const logInUrl = 'https://redditpost.herokuapp.com/api/auth/login';
-// const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
-const registerUrl = 'https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register';
+const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
+// const registerUrl = 'https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register';
 
 function App() {
 
@@ -46,6 +46,7 @@ function App() {
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+    setFormErrors({ ...formErrors, login: ''})
     //Add validation errors to list of form errors
     yup.reach(formSchema, name)
       .validate(value)
@@ -68,7 +69,7 @@ function App() {
     axios.post(url, formValues)
       .then(res => {
         console.log('Response', res);
-        setFormErrors({ ...formErrors, login: '' })
+        setFormErrors({...formErrors, login: ''})
       })
       .catch(err => {
         console.log(err);
