@@ -17,6 +17,7 @@ const initState = {
   posts: [],
   error: "",
   loading: false,
+  favorite: [],
 };
 
 export const postReducer = (state = initState, action) => {
@@ -85,7 +86,7 @@ export const postReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        posts: action.payload,
+        favorite: [...state.favorite, action.payload],
       };
 
     case SAVE_POST_FAILURE:

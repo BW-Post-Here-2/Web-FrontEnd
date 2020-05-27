@@ -78,7 +78,7 @@ function App(props) {
     axios
       .post(url, formValues)
       .then((res) => {
-        console.log("Response", res);
+        console.log("Response", res.data.token);
         localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
       })
