@@ -5,7 +5,7 @@ const UserForm = (props) => {
     const { username, password, onInputChange, handleOnSubmit, pageTitle, disabled } = props;
 
     return (
-        <form class='white' onSubmit={handleOnSubmit}>
+        <form className='white' onSubmit={handleOnSubmit}>
             <h5 className='grey-text text-darken-3'>{pageTitle}</h5>
             <label>Username
                 <input
@@ -18,7 +18,6 @@ const UserForm = (props) => {
 
             <label>Password
                 <input
-                    className='materialize-text'
                     name='password'
                     type='password'
                     value={password}
