@@ -3,22 +3,22 @@ import UserForm from './UserForm';
 
 const SignUp = (props) => {
 
-    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors, isLoggingIn } = props;
+    const { username, password, handleOnSubmit, onInputChange, disabled, formErrors, isLoggingIn, pageTitle } = props;
 
     return (
         <div className="SignInForm">
-            <h2>Sign Up</h2>
+            <h2>{pageTitle}</h2>
             <UserForm
                 username={username}
                 password={password}
                 handleOnSubmit={handleOnSubmit}
                 onInputChange={onInputChange}
-                buttonText={'Sign Up'}
+                buttonText={pageTitle}
                 isSignUp={true}
                 disabled={disabled}
                 formErrors={formErrors}
+                isLoggingIn={isLoggingIn}
             />
-            {isLoggingIn && <p>Signing up, please wait...</p>}
         </div>
     )
 }

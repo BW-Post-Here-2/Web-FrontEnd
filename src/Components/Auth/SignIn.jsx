@@ -2,7 +2,9 @@ import React from 'react';
 import UserForm from './UserForm';
 
 const SignIn = (props) => {
+    
     const { username, password, handleOnSubmit, onInputChange, disabled, formErrors, isLoggingIn } = props;
+    
     return (
         <div className="SignInForm">
             <h2>Log In</h2>

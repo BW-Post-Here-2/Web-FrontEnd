@@ -3,8 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./Components/Layout/Navbar";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import PostDetails from "./Components/Posts/PostDetails";
-import SignIn from "./Components/Auth/SignIn";
-import SignUp from "./Components/Auth/SignUp";
+import AuthPage from './Components/Auth/AuthPage';
 import CreatePost from "./Components/Posts/CreatePost";
 import axios from "axios";
 import * as yup from "yup";
@@ -15,20 +14,21 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 const logInUrl = "https://redditpost.herokuapp.com/api/auth/login";
 // const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
-const registerUrl =
-  "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
+const registerUrl = "https://redditpost.herokualsdfkjasdlfkapp.com/api/auth/register";
+
+const defaultFormValues = {
+  username: "",
+  password: "",
+};
+
+const defaultErrors = {
+  username: "",
+  password: "",
+  login: "",
+};
 
 function App() {
-  const defaultFormValues = {
-    username: "",
-    password: "",
-  };
 
-  const defaultErrors = {
-    username: "",
-    password: "",
-    login: "",
-  };
 
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [formErrors, setFormErrors] = useState(defaultErrors);
@@ -48,7 +48,7 @@ function App() {
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    setFormErrors({ ...formErrors, login: ''})
+    setFormErrors({ ...formErrors, login: '' })
     //Add validation errors to list of form errors
     yup
       .reach(formSchema, name)
@@ -70,7 +70,6 @@ function App() {
     axios.post(url, formValues)
       .then(res => {
         console.log('Response', res);
-        setFormErrors({...formErrors, login: ''})
       })
       .catch((err) => {
         console.log(err);
@@ -83,11 +82,13 @@ function App() {
 
   const logInSubmit = (e) => {
     e.preventDefault();
+    setFormErrors({ ...formErrors, login: '' })
     userFormPost(logInUrl, true);
   };
 
   const signUpSubmit = (e) => {
     e.preventDefault();
+    setFormErrors({ ...formErrors, login: '' })
     userFormPost(registerUrl, false);
   };
 
@@ -99,7 +100,8 @@ function App() {
           <Route exact path="/" component={Dashboard} />
           <Route path="/post/:id" component={PostDetails} />
           <Route path="/signin">
-            <SignIn
+            <AuthPage
+              pageTitle={'Log In'}
               formValues={formValues}
               formErrors={formErrors}
               handleOnSubmit={logInSubmit}
@@ -109,7 +111,8 @@ function App() {
             />
           </Route>
           <Route path="/signup">
-            <SignUp
+            <AuthPage
+              pageTitle={'Sign Up'}
               formValues={formValues}
               formErrors={formErrors}
               handleOnSubmit={signUpSubmit}
