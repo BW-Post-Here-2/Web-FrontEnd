@@ -1,14 +1,36 @@
+import {
+  CREATE_POST_START,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAILURE,
+} from "../Actions/postActions";
+
 const initState = {
-    posts: [
-        {id: '1', title: 'bake a cake', content: 'blah blah blah'},
-        {id: '2', title: 'collect stuff', content: 'blah blah blah'},
-        {id: '3', title: 'exercise routine', content: 'blah blah blah'}
-    ]
-}
+  posts: [],
+  error: "",
+  loading: false,
+};
 
+export const postReducer = (state = initState, action) => {
+  switch (action.type) {
+    case CREATE_POST_START:
+      return {
+        ...state,
+        loading: true,
+      };
 
-const postReducer = (state = initState, action) => {
-    return state
-}
+    case CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        posts: [...state.posts, action.payload],
+      };
 
-export default postReducer;
+    case CREATE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
