@@ -94,7 +94,6 @@ function App() {
 
   //When changing pages, erase form values using this
   const setFormToDefault = (e) => {
-    e.preventDefault();
     setFormValues(defaultFormValues);
     setFormErrors(defaultErrors);
   }
