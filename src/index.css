@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  color: white;
+  background: #212121;
 }
 
 body {
@@ -27,4 +27,8 @@ form button, form h5{
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.authMessages {
+  color: #FF9100;
 }
