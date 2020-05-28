@@ -32,7 +32,7 @@ export const postReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        posts: [...state.posts, action.payload],
+        posts: [...action.payload],
       };
 
     case CREATE_POST_FAILURE:
@@ -67,7 +67,7 @@ export const postReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        posts: [...state.posts, action.payload],
+        favorite: [...state.favorite, action.payload],
       };
 
     case DELETE_POST_FAILURE:
@@ -85,7 +85,7 @@ export const postReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        favorite: [...state.favorite, action.payload],
+        favorite: [...action.payload],
       };
 
     case SAVE_POST_FAILURE:

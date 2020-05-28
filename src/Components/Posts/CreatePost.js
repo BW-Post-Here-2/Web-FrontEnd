@@ -1,12 +1,37 @@
 import React, { Component } from "react";
-import { createPost } from "../../Store/Actions/postActions";
+import { createPost, savePost } from "../../Store/Actions/postActions";
 import { connect } from "react-redux";
 
 export class CreatePost extends Component {
-  state = {
-    title: "",
-    content: "",
-  };
+  constructor() {
+    super();
+    this.state = {
+      title: "",
+      content: "",
+      postId: {},
+      subReddit: "",
+      showMenu: false,
+    };
+    this.showMenu = this.showMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
+  }
+
+  showMenu(event) {
+    event.preventDefault();
+
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener("click", this.closeMenu);
+    });
+  }
+
+  closeMenu(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener("click", this.closeMenu);
+      });
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -37,10 +62,42 @@ export class CreatePost extends Component {
               onChange={this.handleChange}
             ></textarea>
           </div>
+          <h5 className="grey-text text-darken-3">Select Subreddit</h5>
+          <div>
+            <button
+              onClick={this.showMenu}
+              className="btn light-blue lighten-1 z-depth-2"
+            >
+              Show menu
+            </button>
 
+            {this.state.showMenu ? (
+              <div
+                className="menu"
+                ref={(element) => {
+                  this.dropdownMenu = element;
+                }}
+              >
+                <button className="btn orange accent-3 z-depth-1">
+                  {" "}
+                  r/Home{" "}
+                </button>
+                <br></br>
+                <button className="btn orange accent-3 z-depth-1">
+                  {" "}
+                  r/Coronavirus{" "}
+                </button>
+                <br></br>
+                <button className="btn orange accent-3 z-depth-1">
+                  {" "}
+                  r/Askreddit{" "}
+                </button>
+              </div>
+            ) : null}
+          </div>
           <div className="input-field">
-            <button className="btn light-blue lighten-1 z-depth-0">
-              Create Post
+            <button className="btn light-blue lighten-1 z-depth-2">
+              Add Post
             </button>
           </div>
         </form>

@@ -62,12 +62,12 @@ const PostDetails = (props) => {
                       >
                         Save
                       </button>
-                      <button
+                      {/* <button
                         key={post.id}
                         onClick={() => this.props.post.posts.deletePost(post)}
                       >
                         Delete
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

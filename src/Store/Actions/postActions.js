@@ -62,16 +62,16 @@ export const savePost = (post_id) => (dispatch) => {
   dispatch({ type: SAVE_POST_START });
   axiosWithAuth()
     .post("/reddit/favorite", { post_id })
-    .then((res) => {})
-    .catch((err) => {
-      console.log(err);
-      dispatch({ type: SAVE_POST_FAILURE, payload: err });
-    });
-  axiosWithAuth()
-    .get("/reddit/favorite")
     .then((res) => {
-      console.log({ res });
-      dispatch({ type: SAVE_POST_SUCCESS, payload: res });
+      axiosWithAuth()
+        .get("/reddit/favorite")
+        .then((res) => {
+          dispatch({ type: SAVE_POST_SUCCESS, payload: res.data });
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch({ type: SAVE_POST_FAILURE, payload: err });
+        });
     })
     .catch((err) => {
       console.log(err);

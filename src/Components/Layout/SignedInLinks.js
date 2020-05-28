@@ -11,7 +11,7 @@ const SignedInLinks = () => {
         <NavLink to="/create">New Post</NavLink>
       </li>
       <li>
-        <NavLink to="/savedposts">Saved Post</NavLink>
+        <NavLink to="/savedposts">My Posts</NavLink>
       </li>
       <li>
         <NavLink to="/signin">Log Out</NavLink>
