@@ -72,7 +72,7 @@ function App() {
     axios
       .post(url, formValues)
       .then((res) => {
-        console.log("Response", res.data.token);
+        console.log("Response", res);
         localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
         setFormToDefault();

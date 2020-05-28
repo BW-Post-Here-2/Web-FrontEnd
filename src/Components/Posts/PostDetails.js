@@ -20,6 +20,10 @@ const PostDetails = (props) => {
   const postState = useSelector((state) => {
     return state.post.posts;
   });
+  const favoriteState = useSelector((state) => {
+    return state.post.favorite;
+  });
+  console.log({ favoriteState });
 
   //   console.log({ postState });
 
@@ -36,31 +40,34 @@ const PostDetails = (props) => {
       <div className="card z-depth-0">
         <div className="card-content">
           {postState
-            .filter((item, idx) => idx < 20)
+            .filter((item, idx) => idx < 100)
             .map((post) => {
-              console.log(post.id);
               return (
-                <div className="card-action  grelighten-4 y-text">
+                <div key={post.id} className="card-action  grelighten-4 y-text">
                   <div key={post.id}>
-                    <span className="card-title">{post.post_title}</span>
-                    <p>{post.post_content}</p>
-                    <h4>{post.subreddits}</h4>
+                    <span className="card-title">TITLE:{post.post_title}</span>
+                    <p>CONTENT:{post.post_content}</p>
+                    <h4>r/{post.subreddits}</h4>
 
                     <div className="card-action grey lighten-4 grey-text">
                       <div>Pulled from Reddit</div>
                       <div>May 27 2020</div>
                       <button
                         className="save-button"
-                        onClick={() => dispatch(savePost(post.id))}
+                        onClick={() => {
+                          console.log(post.id);
+                          dispatch(savePost(post.id));
+                          console.log({ favoriteState });
+                        }}
                       >
                         Save
                       </button>
-                      <button
+                      {/* <button
                         key={post.id}
                         onClick={() => this.props.post.posts.deletePost(post)}
                       >
                         Delete
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import UserForm from './UserForm';
 import { useHistory } from 'react-router-dom';
+
 const AuthPage = (props) => {
 
     const {
@@ -24,7 +25,6 @@ const AuthPage = (props) => {
 
     return (
         <div className="SignInForm container">
-
             <UserForm
                 username={formValues.username}
                 password={formValues.password}
