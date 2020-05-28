@@ -73,6 +73,7 @@ function App() {
         console.log("Response", res.data.token);
         localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
+        setFormToDefault();
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +107,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App grey darken-4">
-        <Navbar />
+        <Navbar setFormToDefault={setFormToDefault}/>
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route path="/post/:id" component={PostDetails} />
