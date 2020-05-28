@@ -3,17 +3,20 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./Components/Layout/Navbar";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import PostDetails from "./Components/Posts/PostDetails";
-import AuthPage from './Components/Auth/AuthPage';
+import AuthPage from "./Components/Auth/AuthPage";
 import CreatePost from "./Components/Posts/CreatePost";
 import axios from "axios";
+import SavedPosts from "./Components/Posts/SavedPosts";
 import * as yup from "yup";
 import formSchema from "./Components/Auth/validation/formSchema";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 // import './App.css';
 
 const logInUrl = "https://redditpost.herokuapp.com/api/auth/login";
-const registerUrl = 'https://redditpost.herokuapp.com/api/auth/register';
+const registerUrl = "https://redditpost.herokuapp.com/api/auth/register";
 
 const defaultFormValues = {
   username: "",
@@ -27,7 +30,6 @@ const defaultErrors = {
 };
 
 function App() {
-
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [formErrors, setFormErrors] = useState(defaultErrors);
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -51,11 +53,11 @@ function App() {
       .reach(formSchema, name)
       .validate(value)
       .then((valid) => {
-        setFormErrors({ ...formErrors, [name]: '', login: '' });
+        setFormErrors({ ...formErrors, [name]: "", login: "" });
       })
       .catch((err) => {
-        setFormErrors({ ...formErrors, [name]: err.message, login: '' });
-      })
+        setFormErrors({ ...formErrors, [name]: err.message, login: "" });
+      });
   };
 
   //Send POST request to create/authenticate user
@@ -65,9 +67,12 @@ function App() {
       : "Sorry, we were not able to create your account. Please try again in a few minutes.";
 
     setIsLoggingIn(true);
-    axios.post(url, formValues)
-      .then(res => {
-        console.log('Response', res);
+    axios
+      .post(url, formValues)
+      .then((res) => {
+        console.log("Response", res.data.token);
+        localStorage.setItem("token", res.data.token);
+        setFormErrors({ ...formErrors, login: "" });
       })
       .catch((err) => {
         console.log(err);
@@ -81,14 +86,14 @@ function App() {
   //Submit user login
   const logInSubmit = (e) => {
     e.preventDefault();
-    setFormErrors({ ...formErrors, login: '' })
+    setFormErrors({ ...formErrors, login: "" });
     userFormPost(logInUrl, true);
   };
 
   //Submit user registration
   const signUpSubmit = (e) => {
     e.preventDefault();
-    setFormErrors({ ...formErrors, login: '' })
+    setFormErrors({ ...formErrors, login: "" });
     userFormPost(registerUrl, false);
   };
 
@@ -96,7 +101,7 @@ function App() {
   const setFormToDefault = (e) => {
     setFormValues(defaultFormValues);
     setFormErrors(defaultErrors);
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -107,7 +112,7 @@ function App() {
           <Route path="/post/:id" component={PostDetails} />
           <Route path="/signin">
             <AuthPage
-              pageTitle={'Log In'}
+              pageTitle={"Log In"}
               formValues={formValues}
               formErrors={formErrors}
               handleOnSubmit={logInSubmit}
@@ -118,7 +123,7 @@ function App() {
           </Route>
           <Route path="/signup">
             <AuthPage
-              pageTitle={'Sign Up'}
+              pageTitle={"Sign Up"}
               formValues={formValues}
               formErrors={formErrors}
               handleOnSubmit={signUpSubmit}
@@ -128,8 +133,10 @@ function App() {
               isSignUp={true}
             />
           </Route>
+          <Route path="/savedposts" component={SavedPosts} />
           <Route path="/create" component={CreatePost} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/postdetail" component={PostDetails} />
         </Switch>
       </div>
     </BrowserRouter>
