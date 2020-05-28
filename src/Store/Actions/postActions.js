@@ -61,13 +61,20 @@ export const deletePost = (post_id) => (dispatch) => {
 export const savePost = (post_id) => (dispatch) => {
   dispatch({ type: SAVE_POST_START });
   axiosWithAuth()
-    .post("/reddit/favorite", post_id)
+    .post("/reddit/favorite", { post_id })
+    .then((res) => {})
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: SAVE_POST_FAILURE, payload: err });
+    });
+  axiosWithAuth()
+    .get("/reddit/favorite")
     .then((res) => {
       console.log({ res });
-      return dispatch({ type: SAVE_POST_SUCCESS, payload: res });
+      dispatch({ type: SAVE_POST_SUCCESS, payload: res });
     })
     .catch((err) => {
       console.log(err);
-      return dispatch({ type: SAVE_POST_FAILURE, payload: err });
+      dispatch({ type: SAVE_POST_FAILURE, payload: err });
     });
 };

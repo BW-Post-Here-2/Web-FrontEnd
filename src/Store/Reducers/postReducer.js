@@ -63,7 +63,6 @@ export const postReducer = (state = initState, action) => {
         ...state,
         loading: true,
       };
-
     case DELETE_POST_SUCCESS:
       return {
         ...state,
@@ -82,7 +81,7 @@ export const postReducer = (state = initState, action) => {
         loading: true,
       };
     case SAVE_POST_SUCCESS:
-      console.log(action.payload);
+      console.log("save_post_sucss:", action.payload);
       return {
         ...state,
         loading: false,
