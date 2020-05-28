@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import UserForm from './UserForm';
-
+import { useHistory } from 'react-router-dom';
 const AuthPage = (props) => {
 
     const {
@@ -11,12 +11,20 @@ const AuthPage = (props) => {
         formErrors,
         isLoggingIn,
         isSignUp,
-        pageTitle
+        pageTitle,
+        setHistoryState
     } = props;
+
+    let history = useHistory();
+
+    useEffect(() => {
+        setHistoryState(history);
+    }, [])
+
 
     return (
         <div className="SignInForm container">
-            
+
             <UserForm
                 username={formValues.username}
                 password={formValues.password}
