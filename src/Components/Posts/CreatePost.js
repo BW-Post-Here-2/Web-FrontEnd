@@ -39,16 +39,16 @@ export class CreatePost extends Component {
     }
   }
 
-  // handleChange = (e) => {
-  //   this.setState({
-  //     [e.target.id]: e.target.value,
-  //   });
-  // };
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // console.log(this.state)
-  //   this.props.createPost(this.state);
-  // };
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(this.state)
+    this.props.createPost(this.state);
+  };
 
   render() {
     return (
@@ -103,14 +103,15 @@ export class CreatePost extends Component {
             ) : null}
           </div>
           <div className="input-field">
-            {/* <button
-              className="save-button"
-              onClick={() => {
-                dispatch(createPost(post));
-              }}
+            <button
+              className="btn light-blue lighten-1 z-depth-2"
+              // className="save-button"
+              // onClick={() => {
+              //   dispatch(createPost(post));
+              // }}
             >
               Create Post
-            </button> */}
+            </button>
           </div>
         </form>
       </div>
