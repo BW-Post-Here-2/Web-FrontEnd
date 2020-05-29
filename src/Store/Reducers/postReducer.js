@@ -11,6 +11,9 @@ import {
   SAVE_POST_START,
   SAVE_POST_SUCCESS,
   SAVE_POST_FAILURE,
+  FETCH_SAVED_POST_START,
+  FETCH_SAVED_POST_SUCCESS,
+  FETCH_SAVED_POST_FAILURE,
 } from "../Actions/postActions";
 
 const initState = {
@@ -64,6 +67,7 @@ export const postReducer = (state = initState, action) => {
         loading: true,
       };
     case DELETE_POST_SUCCESS:
+      // const filteredArray = state.favorites.filter();
       return {
         ...state,
         loading: false,
@@ -89,6 +93,24 @@ export const postReducer = (state = initState, action) => {
       };
 
     case SAVE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case FETCH_SAVED_POST_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_SAVED_POST_SUCCESS:
+      console.log("saved_post_sucss:", action.payload);
+      return {
+        ...state,
+        loading: false,
+        favorite: [...action.payload],
+      };
+
+    case FETCH_SAVED_POST_FAILURE:
       return {
         ...state,
         error: action.payload,

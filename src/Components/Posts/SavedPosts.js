@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPost,
+  deletePost,
+  savePost,
+  createPost,
+  fetchSavedPost,
+} from "../../Store/Actions/postActions";
 // import { NavLink } from "react-router-dom";
 
-function SavedPosts({ post }) {
-  const postState = useSelector((state) => {
-    return state.post.posts;
-  });
+function SavedPosts({ post }, props) {
+  const dispatch = useDispatch();
+
+  // const postState = useSelector((state) => {
+  //   return state.post.posts;
+  // });
   const favoriteState = useSelector((state) => {
     return state.post.favorite;
   });
+
+  const helperFunction = (id) => {
+    dispatch(deletePost(id));
+    setDummyState(dummyState + 1);
+  };
+
+  const [dummyState, setDummyState] = useState(1);
+
+  // const [favoritedPosts, setFavoritedPosts] = useState(favoriteState);
+
+  useEffect(() => {
+    dispatch(fetchSavedPost());
+  }, [dummyState]);
+
+  // useEffect(() => {
+
+  // })
+
   console.log("My favorite state", favoriteState);
   return (
     <div className="container section project-details">
@@ -18,7 +45,7 @@ function SavedPosts({ post }) {
             console.log(post);
             return (
               <div key={post.id} className="card-action  grelighten-4 y-text">
-                <div key={post.id}>
+                <div>
                   <span className="card-title">TITLE:{post.post_title}</span>
                   <p>CONTENT:{post.post_content}</p>
                   <h4>r/{post.subreddits}</h4>
@@ -36,10 +63,7 @@ function SavedPosts({ post }) {
                       >
                         Save
                       </button> */}
-                    <button
-                      key={post.id}
-                      onClick={() => this.props.post.posts.deletePost(post)}
-                    >
+                    <button onClick={() => helperFunction(post.post_id)}>
                       Delete
                     </button>
                   </div>

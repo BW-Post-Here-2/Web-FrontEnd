@@ -13,7 +13,12 @@ const SignedInLinks = () => {
       <li>
         <NavLink to="/savedposts">My Posts</NavLink>
       </li>
-      <li>
+      <li
+        onClick={() => {
+          localStorage.clear();
+          window.location.href = "/signin";
+        }}
+      >
         <NavLink to="/signin">Log Out</NavLink>
       </li>
       <li>
