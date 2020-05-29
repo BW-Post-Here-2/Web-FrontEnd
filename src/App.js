@@ -63,7 +63,7 @@ function App() {
       });
   };
 
-  //Send POST request to create/authenticate user
+  //Send POST request to create/authenticate user. Get auth token and redirect user after sign in/up.
   const userFormPost = (url, isLoginAttempt) => {
     const loginError = isLoginAttempt
       ? "Sorry, we could not log you in with that username and password."
@@ -76,8 +76,19 @@ function App() {
         console.log("Response", res);
         localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
+      })
+      //after sign up, log user in.
+      .then(() => {
+        if (!isLoginAttempt) {
+          axios.post(logInUrl, formValues)
+            .then(res => {
+              localStorage.setItem("token", res.data.token);
+            })
+        }
+        
         setFormToDefault();
         redirectUser(historyState, "/");
+
       })
       .catch((err) => {
         console.log(err);
