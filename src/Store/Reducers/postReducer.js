@@ -14,17 +14,27 @@ import {
   FETCH_SAVED_POST_START,
   FETCH_SAVED_POST_SUCCESS,
   FETCH_SAVED_POST_FAILURE,
+  FETCH_USER_START,
+  FETCH_USER_SUCCESS,
+  LOGOUT,
+  FETCH_USER_FAILURE,
+  POST_USER_SUCCESS,
+  POST_USER_FAILURE,
 } from "../Actions/postActions";
 
 const initState = {
   posts: [],
+  favorite: [],
+  user: [],
   error: "",
   loading: false,
-  favorite: [],
+  chosen: false,
 };
 
 export const postReducer = (state = initState, action) => {
   switch (action.type) {
+    //CREATING POSTS
+    //*********************************** */
     case CREATE_POST_START:
       return {
         ...state,
@@ -43,6 +53,9 @@ export const postReducer = (state = initState, action) => {
         ...state,
         error: action.payload,
       };
+
+    //FETCHING POSTS
+    //*********************************** */
     case FETCH_POST_START:
       return {
         ...state,
@@ -61,13 +74,15 @@ export const postReducer = (state = initState, action) => {
         ...state,
         error: action.payload,
       };
+
+    //DELETING POSTS
+    //*********************************** */
     case DELETE_POST_START:
       return {
         ...state,
         loading: true,
       };
     case DELETE_POST_SUCCESS:
-      // const filteredArray = state.favorites.filter();
       return {
         ...state,
         loading: false,
@@ -79,6 +94,9 @@ export const postReducer = (state = initState, action) => {
         ...state,
         error: action.payload,
       };
+
+    //SAVING POSTS
+    //*********************************** */
     case SAVE_POST_START:
       return {
         ...state,
@@ -97,6 +115,9 @@ export const postReducer = (state = initState, action) => {
         ...state,
         error: action.payload,
       };
+
+    //SAVED POSTS
+    //*********************************** */
     case FETCH_SAVED_POST_START:
       return {
         ...state,
@@ -114,6 +135,41 @@ export const postReducer = (state = initState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    //USERS
+    //*********************************** */
+    case FETCH_USER_START:
+      return {
+        ...state,
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        error: "",
+      };
+    case FETCH_USER_FAILURE:
+      return {
+        ...state,
+        err: action.payload,
+      };
+    case POST_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case POST_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    //LOGOUT
+    //*********************************** */
+    case LOGOUT:
+      localStorage.clear();
+      window.location.href = "/sigup";
+      return {
+        loading: false,
       };
 
     default:

@@ -20,6 +20,15 @@ export const FETCH_SAVED_POST_START = "FETCH_SAVED_POST_START";
 export const FETCH_SAVED_POST_SUCCESS = "FETCH_SAVED_POST_SUCCESS";
 export const FETCH_SAVED_POST_FAILURE = "FETCH_SAVED_POST_FAILURE";
 
+export const FETCH_USER_START = "FETCH_USER_START";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
+
+export const POST_USER_SUCCESS = "POST_USER_SUCCESS";
+export const POST_USER_FAILURE = "POST_USER_FAILURE";
+
+export const LOGOUT = "LOGOUT";
+
 export const createPost = (post_id) => (dispatch) => {
   dispatch({ type: CREATE_POST_START });
   axiosWithAuth()
@@ -94,4 +103,32 @@ export const fetchSavedPost = () => (dispatch) => {
       console.log("failed", err);
       dispatch({ type: FETCH_SAVED_POST_FAILURE, payload: err });
     });
+};
+
+export const userAction = (username, password) => {
+  return (dispatch) => {
+    dispatch({ type: FETCH_USER_START });
+    axiosWithAuth()
+      .put(`/auth/user`, { username, password })
+      .then((res) => {
+        console.log("success");
+        dispatch({
+          type: POST_USER_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("failure");
+        dispatch({
+          type: POST_USER_FAILURE,
+          payload: err,
+        });
+      });
+  };
+};
+
+export const logOut = () => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT });
+  };
 };

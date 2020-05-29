@@ -10,6 +10,7 @@ import SavedPosts from "./Components/Posts/SavedPosts";
 import * as yup from "yup";
 import formSchema from "./Components/Auth/validation/formSchema";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import AccountsAuth from "./Components/Auth/AccountsAuth";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
@@ -34,6 +35,8 @@ function App() {
   const [formErrors, setFormErrors] = useState(defaultErrors);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  //useHistory can't be used in App outside of Router. Use setHistoryState to set history inside a child component if needed.
+  const [historyState, setHistoryState] = useState(null);
 
   //Form validation for login/signup using yup
   useEffect(() => {
@@ -72,6 +75,9 @@ function App() {
       .then((res) => {
         console.log("Response", res);
         localStorage.setItem("token", res.data.token);
+        setFormErrors({ ...formErrors, login: "" });
+        setFormToDefault();
+        redirectUser(historyState, "/");
       })
       .catch((err) => {
         console.log(err);
@@ -102,10 +108,19 @@ function App() {
     setFormErrors(defaultErrors);
   };
 
+  //Redirect the user, passing in historyState and URL to route to.
+  const redirectUser = (history, redirectUrl) => {
+    try {
+      history.push(redirectUrl);
+    } catch {
+      //do nothing
+    }
+  };
+
   return (
     <BrowserRouter>
       <div className="App grey darken-4">
-        <Navbar />
+        <Navbar setFormToDefault={setFormToDefault} />
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route path="/post/:id" component={PostDetails} />
@@ -118,6 +133,7 @@ function App() {
               onInputChange={onInputChange}
               disabled={submitDisabled}
               isLoggingIn={isLoggingIn}
+              setHistoryState={setHistoryState}
             />
           </Route>
           <Route path="/signup">
@@ -129,11 +145,15 @@ function App() {
               onInputChange={onInputChange}
               disabled={submitDisabled}
               isLoggingIn={isLoggingIn}
+              setHistoryState={setHistoryState}
               isSignUp={true}
             />
           </Route>
           <Route path="/savedposts" component={SavedPosts} />
           <Route path="/create" component={CreatePost} />
+
+          <PrivateRoute path="/account" component={AccountsAuth} />
+
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/postdetail" component={PostDetails} />
         </Switch>

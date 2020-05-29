@@ -6,16 +6,9 @@ import {
   savePost,
   createPost,
 } from "../../Store/Actions/postActions";
+
 const PostDetails = (props) => {
   const [posts, setPosts] = useState(null);
-  // const [savedList, setSavedList] = useState([]);
-
-  // const addToSavedList = (post) => {
-  //   setSavedList([...savedList, post]);
-
-  // const savePost = () => {
-  //   addToSavedList(posts);
-  // };
 
   const postState = useSelector((state) => {
     return state.post.posts;
@@ -25,15 +18,11 @@ const PostDetails = (props) => {
   });
   console.log({ favoriteState });
 
-  //   console.log({ postState });
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPost());
   }, []);
-
-  // const id = props.match.params.id;
 
   return (
     <div className="container section project-details">
