@@ -49,7 +49,7 @@ const SignedInLinks = ({ setFormToDefault, usernameDisplay }) => {
           <NavLink
             to="/"
             onClick={setFormToDefault}
-            className="userDisplayBtn btn blue lighten-1"
+            className="userDisplayBtn btn light-blue lighten-1"
           >
             {usernameDisplay}
           </NavLink>

@@ -42,7 +42,7 @@ const PostDetails = (props) => {
                       <div>Pulled from Reddit</div>
                       <div>May 27 2020</div>
                       <button
-                        className="save-button"
+                        className="save-button btn light-blue lighten-1"
                         onClick={() => {
                           console.log(post.id);
                           dispatch(savePost(post.id));
