@@ -63,7 +63,7 @@ function SavedPosts({ post }, props) {
                       >
                         Save
                       </button> */}
-                    <button onClick={() => helperFunction(post.post_id)}>
+                    <button className='btn red lighten-1 z-index-2' onClick={() => helperFunction(post.post_id)}>
                       Delete
                     </button>
                   </div>
