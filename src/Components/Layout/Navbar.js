@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 
-const Navbar = ({ setFormToDefault }) => {
+const Navbar = ({ setFormToDefault, usernameDisplay }) => {
   return (
     <nav className="nav-wrapper orange accent-3">
       <div className="container">
         {/* <Link to="/" className="brand-logo">
           Reddit Nav
         </Link> */}
-        <SignedInLinks setFormToDefault={setFormToDefault} />
+        <SignedInLinks setFormToDefault={setFormToDefault} usernameDisplay={usernameDisplay} />
         {/* <SignedOutLinks setFormToDefault={setFormToDefault} /> */}
       </div>
     </nav>

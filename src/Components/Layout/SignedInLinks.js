@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const SignedInLinks = ({ setFormToDefault }) => {
+const SignedInLinks = ({ setFormToDefault, usernameDisplay }) => {
   return (
     <ul className="right">
       <li>
@@ -45,13 +45,15 @@ const SignedInLinks = ({ setFormToDefault }) => {
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/"
-          onClick={setFormToDefault}
-          className="btn btn-floating blue lighten-1"
-        >
-          R
-        </NavLink>
+        {usernameDisplay &&
+          <NavLink
+            to="/"
+            onClick={setFormToDefault}
+            className="userDisplayBtn btn light-blue lighten-1"
+          >
+            {usernameDisplay}
+          </NavLink>
+        }
       </li>
     </ul>
   );

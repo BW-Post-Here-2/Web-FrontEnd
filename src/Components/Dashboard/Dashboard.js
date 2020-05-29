@@ -21,18 +21,18 @@ class Dashboard extends Component {
           {/* <div className="col s12 m6"> */}
           <div className="container2">
             <div>
-              <button className="btn orange accent-3 z-depth-2">
-                <Link to="/create">Create Post</Link>
+              <button className="btn light-blue lighten-1 z-depth-2">
+                <Link className='white-text' to="/create">Create Post</Link>
               </button>
             </div>
             <div>
-              <button className="btn orange accent-3 z-depth-2">
-                <Link to="/post/:id">Reddit Archive</Link>
+              <button className="btn light-blue lighten-1 z-depth-2">
+                <Link className='white-text' to="/post/:id">Reddit Archive</Link>
               </button>
             </div>
             <div>
-              <button className="btn orange accent-3 z-depth-2">
-                <Link to="/savedposts">Saved Posts</Link>
+              <button className="btn light-blue lighten-1 z-depth-2">
+                <Link className='white-text' to="/savedposts">Saved Posts</Link>
               </button>
             </div>
           </div>
