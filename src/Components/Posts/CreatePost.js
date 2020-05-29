@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { createPost, savePost } from "../../Store/Actions/postActions";
 import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPost,
+  deletePost,
+  savePost,
+  createPost,
+} from "../../Store/Actions/postActions";
 
 export class CreatePost extends Component {
   constructor() {
@@ -8,10 +14,11 @@ export class CreatePost extends Component {
     this.state = {
       title: "",
       content: "",
-      postId: {},
+      postId: [],
       subReddit: "",
       showMenu: false,
     };
+
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
   }
@@ -32,16 +39,16 @@ export class CreatePost extends Component {
     }
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(this.state)
-    this.props.createPost(this.state);
-  };
+  // handleChange = (e) => {
+  //   this.setState({
+  //     [e.target.id]: e.target.value,
+  //   });
+  // };
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // console.log(this.state)
+  //   this.props.createPost(this.state);
+  // };
 
   render() {
     return (
@@ -96,12 +103,19 @@ export class CreatePost extends Component {
             ) : null}
           </div>
           <div className="input-field">
-            <button className="btn light-blue lighten-1 z-depth-2">
-              Add Post
-            </button>
+            {/* <button
+              className="save-button"
+              onClick={() => {
+                dispatch(createPost(post));
+              }}
+            >
+              Create Post
+            </button> */}
           </div>
         </form>
       </div>
+
+      //*******************************************************
     );
   }
 }

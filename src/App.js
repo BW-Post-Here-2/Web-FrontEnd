@@ -10,6 +10,7 @@ import SavedPosts from "./Components/Posts/SavedPosts";
 import * as yup from "yup";
 import formSchema from "./Components/Auth/validation/formSchema";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import AccountsAuth from "./Components/Auth/AccountsAuth";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
@@ -76,7 +77,7 @@ function App() {
         localStorage.setItem("token", res.data.token);
         setFormErrors({ ...formErrors, login: "" });
         setFormToDefault();
-        redirectUser(historyState, '/');
+        redirectUser(historyState, "/");
       })
       .catch((err) => {
         console.log(err);
@@ -111,11 +112,10 @@ function App() {
   const redirectUser = (history, redirectUrl) => {
     try {
       history.push(redirectUrl);
-    }
-    catch {
+    } catch {
       //do nothing
     }
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -151,6 +151,9 @@ function App() {
           </Route>
           <Route path="/savedposts" component={SavedPosts} />
           <Route path="/create" component={CreatePost} />
+
+          <PrivateRoute path="/account" component={AccountsAuth} />
+
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/postdetail" component={PostDetails} />
         </Switch>
