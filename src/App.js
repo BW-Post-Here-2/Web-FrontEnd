@@ -35,6 +35,7 @@ function App() {
   const [formErrors, setFormErrors] = useState(defaultErrors);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [usernameDisplay, setUsernameDisplay] = useState(null);
   //useHistory can't be used in App outside of Router. Use setHistoryState to set history inside a child component if needed.
   const [historyState, setHistoryState] = useState(null);
 
@@ -85,10 +86,8 @@ function App() {
               localStorage.setItem("token", res.data.token);
             })
         }
-        
-        setFormToDefault();
+        setUsernameDisplay(formValues.username);
         redirectUser(historyState, "/");
-
       })
       .catch((err) => {
         console.log(err);
@@ -131,9 +130,14 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App grey darken-4">
-        <Navbar setFormToDefault={setFormToDefault} />
+        <Navbar
+          setFormToDefault={setFormToDefault}
+          usernameDisplay={usernameDisplay}
+        />
         <Switch>
-          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/">
+            <Dashboard usernameDisplay={usernameDisplay} />
+          </Route>
           <Route path="/post/:id" component={PostDetails} />
           <Route path="/signin">
             <AuthPage

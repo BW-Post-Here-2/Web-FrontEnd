@@ -33,3 +33,7 @@ code {
 .authMessages {
   color: #FF9100;
 }
+
+.userDisplayBtn {
+  border-radius: 30px;
+}
